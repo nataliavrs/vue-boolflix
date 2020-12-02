@@ -15,3 +15,7 @@ body {
 }
 
 /* MAIN */
+
+.lang-flag img {
+  max-width: 30px;
+}
