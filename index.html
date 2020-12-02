@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>BoolFlix</title>
+  </head>
+  <body>
+
+    <div id="app">
+
+      <!-- HEADER -->
+      <header>
+        BoolFlix
+      </header>
+
+      <!-- MAIN -->
+      <main>
+
+        <!-- SEARCH MOVIE -->
+        <section>
+
+          <input
+          type="text"
+          value=""
+          placeholder="Search movie"
+          v-model="userQuery"
+          v-on:keyup.enter="searchBtn()"
+            >
+
+          <input
+          type="button"
+          value="Search"
+          @click="searchBtn()"
+            >
+
+
+        </section>
+        <!-- MOVIES FOUND -->
+        <section>
+
+          <div
+            class=""
+            v-for="movie in searchResults"
+            >
+
+            <span>{{movie.title}}</span>
+            <span>{{movie.original_title}}</span>
+            <span>{{movie.original_language}}</span>
+            <span>{{movie.vote_average}}</span>
+
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- FOOTER -->
+      <footer>
+      </footer>
+
+
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
