@@ -19,3 +19,10 @@ body {
 .lang-flag img {
   max-width: 30px;
 }
+
+/* STARS */
+
+.voted-star {
+  color: gold;
+  
+}

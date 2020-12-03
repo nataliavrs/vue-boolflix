@@ -48,25 +48,30 @@
             v-for="movie in searchResults"
             >
 
-            <span>{{movie.title}}</span>
-            <span>{{movie.original_title}}</span>
+            <span><b>Title:</b> {{movie.title}}</span>
+
+            <span><b>Original title:</b>{{movie.original_title}}</span>
             <!-- ORIGINAL LANGUAGE FLAG -->
             <span>{{movie.original_language}}</span>
-            <div
-              class="lang-flag"
-              v-if="movie.original_language == 'en'"
-              >
-              <img src="img/eng.svg" alt="">
-            </div>
-            <!-- VOTE AVERAGE STARS -->
-            <span>{{Math.ceil(movie.vote_average / 2)}}</span>
-            <div
-              class="vote-stars"
-              v-if="Math.ceil(movie.vote_average / 2) > 4 "
-              >
-              <i class="far fa-star"></i>
+            <div class="lang-flag">
+              <img :src="findFlag()" alt="Country language flag">
+              <!-- {{findFlag()}} -->
             </div>
 
+            <!-- VOTE AVERAGE STARS -->
+            <span>{{Math.ceil(movie.vote_average / 2)}}</span>
+            <div class="vote-stars">
+
+              <i
+              :class="
+              [Math.ceil(movie.vote_average / 2) >= 1 ? 'voted-star' 'fas fa-star' : '']"
+              >
+              </i>
+
+              <!-- <i class="far fa-star"></i> -->
+              <!-- v-bind:class="[{ active: isActive }, errorClass] -->
+
+            </div>
 
           </div>
 
