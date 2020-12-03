@@ -22,7 +22,6 @@ body {
 
 /* STARS */
 
-.voted-star {
+.fas.fa-star {
   color: gold;
-  
 }

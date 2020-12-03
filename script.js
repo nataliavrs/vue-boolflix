@@ -5,16 +5,17 @@ var app = new Vue({
     searchResults: [],
     userQuery: "",
     // LANGUAGES
-    // flagLang: "img/flag-lang/" + findFlag() + ".png"
+    flagLang: "img/flag-lang/" + "test" + ".png"
 
     // VOTED STARS
-    voted: false,
+    // voted: false,
 
   },
   mounted: function () {
 
   },
   methods: {
+    // SEARCH INPUT
     searchBtn: function () {
 
       // FETCH DATA FROM API
@@ -29,24 +30,21 @@ var app = new Vue({
 
       });
 
-
     },
+    // FING FLAG
     findFlag: function () {
 
       this.searchResults.forEach((element) => {
 
-        element.original_language =
-        "img/flag-lang/" + "en" + ".png";
+        // element.original_language =
+        // "img/flag-lang/" + element.original_language + ".png";
+
+        console.log(element.original_language);
 
       });
 
-
-      console.log(this.searchResults.original_language);
-
-      // return
-
-      // console.log(this.searchResults[0].original_title);
+      // 🌎
     },
-    // 🌎
+
   },
 });
