@@ -4,9 +4,7 @@ var app = new Vue({
     // SEARCH
     searchResults: [],
     userQuery: "",
-    // FLAGS AVAILABLE
-    // flagsExist: ['af' 'ar','bg','cn','cs','da','de','en','es','et','fr','ga','hi','hu','it','ja','ko','nl','no','pl','pt','ro','ru','sk','sl','sv','tr','vi']
-    flagsExist: 'af arbgcncsdadeenesetfrgahihuitjakonlnoplptroruskskslsvtrvi'
+    flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskskslsvtrvi'
   },
   mounted: function () {
   },
@@ -22,7 +20,11 @@ var app = new Vue({
       axios.get(movieInfo)
       .then(movie => {
 
-        this.searchResults = movie.data.results;
+        for (var i = 0; i < movie.data.results.length; i++) {
+
+          this.searchResults.push(movie.data.results[i]);
+
+        }
 
       });
 
@@ -32,9 +34,11 @@ var app = new Vue({
       axios.get(tvInfo)
       .then(series => {
 
-        this.searchResults.push(series.data.results);
+        for (var i = 0; i < series.data.results.length; i++) {
 
-        // console.log(this.searchResults);
+          this.searchResults.push(series.data.results[i]);
+
+        }
 
       });
 
