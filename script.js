@@ -4,10 +4,10 @@ var app = new Vue({
     // SEARCH
     searchResults: [],
     userQuery: "",
-
+    // FLAGS AVAILABLE
+    flagsExist: ['af', 'ar','bg','cn','cs','da','de','en','es','et','fr','ga','hi','hu','it','ja','ko','nl','no','pl','pt','ro','ru','sk','sk','sl','sv','tr','vi']
   },
   mounted: function () {
-
   },
   methods: {
     // SEARCH INPUT
@@ -29,10 +29,10 @@ var app = new Vue({
     // FIND FLAG
     findFlag: function (lang) {
 
-      if (true) {
-      return  "img/flag-lang/" + this.searchResults[lang].original_language + ".png"
+      if (this.flagsExist.includes(this.searchResults[lang].original_language)) {
+        return  "img/flag-lang/" + this.searchResults[lang].original_language + ".png"
       } else {
-       return  "img/flag-lang/" + "🌎" + ".png"
+        return  "img/flag-lang/" + "world" + ".png"
       }
 
     },
