@@ -5,7 +5,8 @@ var app = new Vue({
     searchResults: [],
     userQuery: "",
     // FLAGS AVAILABLE
-    flagsExist: ['af', 'ar','bg','cn','cs','da','de','en','es','et','fr','ga','hi','hu','it','ja','ko','nl','no','pl','pt','ro','ru','sk','sk','sl','sv','tr','vi']
+    // flagsExist: ['af' 'ar','bg','cn','cs','da','de','en','es','et','fr','ga','hi','hu','it','ja','ko','nl','no','pl','pt','ro','ru','sk','sl','sv','tr','vi']
+    flagsExist: 'af arbgcncsdadeenesetfrgahihuitjakonlnoplptroruskskslsvtrvi'
   },
   mounted: function () {
   },
@@ -16,7 +17,7 @@ var app = new Vue({
       // FETCH MOVIES FROM API
       const movieInfo =
       "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-       + this.userQuery + "&page=1&include_adult=true"
+       + this.userQuery + "&page=1&include_adult=false"
 
       axios.get(movieInfo)
       .then(movie => {
@@ -26,14 +27,14 @@ var app = new Vue({
       });
 
       // FETCH TV SERIES FROM API
-      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query=" + this.userQuery + "&page=1&include_adult=true"
+      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query=" + this.userQuery + "&page=1&include_adult=false"
 
       axios.get(tvInfo)
       .then(series => {
 
-        this.searchResults = series.data.results;
+        this.searchResults.push(series.data.results);
 
-        console.log(this.searchResults);
+        // console.log(this.searchResults);
 
       });
 
