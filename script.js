@@ -4,11 +4,6 @@ var app = new Vue({
     // SEARCH
     searchResults: [],
     userQuery: "",
-    // LANGUAGES
-    flagLang: "img/flag-lang/" + "test" + ".png"
-
-    // VOTED STARS
-    // voted: false,
 
   },
   mounted: function () {
@@ -31,19 +26,15 @@ var app = new Vue({
       });
 
     },
-    // FING FLAG
-    findFlag: function () {
+    // FIND FLAG
+    findFlag: function (lang) {
 
-      this.searchResults.forEach((element) => {
+      if (true) {
+      return  "img/flag-lang/" + this.searchResults[lang].original_language + ".png"
+      } else {
+       return  "img/flag-lang/" + "🌎" + ".png"
+      }
 
-        // element.original_language =
-        // "img/flag-lang/" + element.original_language + ".png";
-
-        console.log(element.original_language);
-
-      });
-
-      // 🌎
     },
 
   },

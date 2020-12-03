@@ -15,7 +15,7 @@
 
       <!-- HEADER -->
       <header>
-        BoolFlix
+        <h1>BoolFlix</h1>
       </header>
 
       <!-- MAIN -->
@@ -38,28 +38,25 @@
           @click="searchBtn()"
             >
 
-
         </section>
+
         <!-- MOVIES FOUND -->
-        <section>
+        <section class="all-movies-container">
 
           <div
-            class=""
-            v-for="movie in searchResults"
+            class="movie-container"
+            v-for="(movie, index) in searchResults"
             >
 
-            <span><b>Title:</b> {{movie.title}}</span>
-
-            <span><b>Original title:</b>{{movie.original_title}}</span>
-            <!-- ORIGINAL LANGUAGE FLAG -->
-            <span>{{movie.original_language}}</span>
-            <div class="lang-flag">
-              <img :src="flagLang" alt="Country language flag">
-              {{findFlag()}}
-            </div>
+            <ul>
+              <li>Title: {{movie.title}}</li>
+              <li>Original title: {{movie.original_title}}</li>
+              <li>Language:
+                <img :src="findFlag(index)" class="lang-flag "alt=""> {{movie.original_language}}</li>
+            </ul>
 
             <!-- VOTE AVERAGE STARS -->
-            <span>{{Math.ceil(movie.vote_average / 2)}}</span>
+
             <div class="vote-stars">
 
               <i v-bind:class="Math.ceil(movie.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
@@ -84,7 +81,6 @@
         </section>
 
       </main>
-
       <!-- FOOTER -->
       <footer>
       </footer>
