@@ -15,27 +15,26 @@
 
       <!-- HEADER -->
       <header>
-        <h1>BoolFlix</h1>
+        <h1>Netflix</h1>
       </header>
 
       <!-- MAIN -->
       <main>
 
-        <!-- SEARCH MOVIE -->
+        <!-- SEARCH MOVIE OR SERIES -->
         <section>
 
           <input
           type="text"
-          value=""
-          placeholder="Search movie"
+          placeholder="Insert title"
           v-model="userQuery"
-          v-on:keyup.enter="searchBtn()"
+          v-on:keyup.enter="searchQuery()"
             >
 
           <input
           type="button"
           value="Search"
-          @click="searchBtn()"
+          @click="searchQuery()"
             >
 
         </section>
@@ -45,33 +44,36 @@
 
           <div
             class="movie-container"
-            v-for="(movie, index) in searchResults"
+            v-for="(match, index) in searchResults"
             >
 
             <ul>
-              <li>Title: {{movie.title}}</li>
-              <li>Original title: {{movie.original_title}}</li>
+              <li>Title: {{match.title}}</li>
+
+              <li>{{match.original_name}}</li>
+              <li>{{match.original_title}}</li>
+
               <li>Language:
-                <img :src="findFlag(index)" class="lang-flag "alt=""> {{movie.original_language}}</li>
+                <img :src="findFlag(index)" class="lang-flag"> {{match.original_language}}</li>
             </ul>
 
             <!-- VOTE AVERAGE STARS -->
 
             <div class="vote-stars">
 
-              <i v-bind:class="Math.ceil(movie.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
+              <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
               </i>
 
-              <i v-bind:class="Math.ceil(movie.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
+              <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
               </i>
 
-              <i v-bind:class="Math.ceil(movie.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
+              <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
               </i>
 
-              <i v-bind:class="Math.ceil(movie.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
+              <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
               </i>
 
-              <i v-bind:class="Math.ceil(movie.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
+              <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
               </i>
 
             </div>

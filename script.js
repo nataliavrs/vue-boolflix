@@ -11,17 +11,27 @@ var app = new Vue({
   },
   methods: {
     // SEARCH INPUT
-    searchBtn: function () {
+    searchQuery: function () {
 
-      // FETCH DATA FROM API
+      // FETCH MOVIES FROM API
       const movieInfo =
       "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-       + this.userQuery + "&page=2&include_adult=true"
+       + this.userQuery + "&page=1&include_adult=true"
 
       axios.get(movieInfo)
       .then(movie => {
 
         this.searchResults = movie.data.results;
+
+      });
+
+      // FETCH TV SERIES FROM API
+      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=US&query=" + this.userQuery + "&page=1&include_adult=true"
+
+      axios.get(tvInfo)
+      .then(series => {
+
+        this.searchResults.push(series.data.results);
 
       });
 
@@ -32,7 +42,7 @@ var app = new Vue({
       if (this.flagsExist.includes(this.searchResults[lang].original_language)) {
         return  "img/flag-lang/" + this.searchResults[lang].original_language + ".png"
       } else {
-        return  "img/flag-lang/" + "world" + ".png"
+        return  "img/flag-lang/world.png"
       }
 
     },
