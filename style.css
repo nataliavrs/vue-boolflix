@@ -17,45 +17,49 @@ header {
   justify-content: space-between;
 }
 
-header img {
-  max-width: 9%;
-}
-
-/* left navigation bar */
-
 header .nav-left, .nav-right {
   width: 50%;
 }
 
-header .nav-left ul li  {
+header img {
+  max-width: 10%;
+}
+
+/* left navigation bar */
+
+header .nav-left * {
   display: inline-block;
 
 }
 
-header .nav-left ul li a {
+header .nav-left ul li {
+  display: inline-block;
+}
+
+a {
   text-decoration: none;
   color: red;
+}
+
+[alt^="Netflix"] {
+  display: inline-block;
+}
+
+.logo {
+  display: inline-block;
 }
 
 /* right navigation bar */
 
 header .nav-right ul li  {
   display: inline-block;
-
 }
+
 
 header .nav-right ul li a {
   text-decoration: none;
   color: red;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -91,9 +95,7 @@ h1 {
   padding: 10px;
 }
 
-ul {
-  list-style: none;
-}
+
 
 /* FLAG */
 
