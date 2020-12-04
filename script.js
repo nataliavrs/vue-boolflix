@@ -8,6 +8,21 @@ var app = new Vue({
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskskslsvtrvi'
   },
   mounted: function () {
+    const movieInfo =
+    "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+     + "10+th" + "&page=1&include_adult=false"
+
+    axios.get(movieInfo)
+    .then(movie => {
+
+      for (var i = 0; i < movie.data.results.length; i++) {
+
+        this.searchResults.push(movie.data.results[i]);
+
+      }
+
+    });
+
   },
   methods: {
     // SEARCH USER'S INPUT
@@ -43,6 +58,8 @@ var app = new Vue({
         }
 
       });
+
+      // series title request <!-- <li>Original Title: {{match.original_name}}</li> -->
 
     },
     // FIND LANGUAGE FLAG

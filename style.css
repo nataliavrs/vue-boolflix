@@ -8,6 +8,18 @@
   font-family: 'Lato', sans-serif;
 }
 
+/* DEBUGGGGGGG */
+
+body {
+  background-color: black;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+
 /* HEADER */
 
 header {
@@ -21,16 +33,18 @@ header .nav-left, .nav-right {
   width: 50%;
 }
 
-header img {
-  max-width: 10%;
-}
 
 /* left navigation bar */
 
 header .nav-left * {
   display: inline-block;
-
+  color: white;
 }
+
+header .nav-left img {
+  max-width: 15%;
+}
+
 
 header .nav-left ul li {
   display: inline-block;
@@ -38,79 +52,117 @@ header .nav-left ul li {
 
 a {
   text-decoration: none;
-  color: red;
+}
+
+ul {
+  list-style: none;
 }
 
 [alt^="Netflix"] {
   display: inline-block;
 }
 
-.logo {
-  display: inline-block;
-}
 
 /* right navigation bar */
 
-header .nav-right ul li  {
+header .nav-right * {
+  display: inline-block;
+}
+
+header .nav-right img {
+  max-width: 5%;
+  border-radius: 3px;
+}
+
+header .nav-right a {
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+}
+
+.search-container {
+  background-color: red;
+}
+
+.input-container {
+  background-color: pink;
+}
+
+
+/* MAIN */
+
+/* movies section */
+
+.all-movies-container {
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: 100vw;
+  height: 400px;
+  overflow-x: auto;
+}
+
+.all-movies-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* movie block */
+
+.movie-container {
+  border: 1px solid grey;
+  width: calc(100% / 5 - 10px);
+  /* min-height: 150px; */
+  margin: 2px;
+  /* padding: 10px; */
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 5px;
+
+}
+
+.movie-container:hover .poster-img{
+	transition: all 0.2s ease-in-out;
+	/* -webkit-filter: blur(4px);
+	-moz-filter: blur(4px);
+	-ms-filter: blur(4px); */
+	/* filter: blur(2px);
+  filter: grayscale(1px); */
+  filter: blur(3px) grayscale(4) contrast(1);
+  transform: scale(1.3);
+}
+
+/* movie info */
+
+.movie-info {
+  display: none;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: red;
+  font-weight: bolder;
+
+}
+
+/* .movie-info li {
+  display: none;
+} */
+
+.poster-img img {
+  max-width: 100%;
+}
+
+
+.movie-container:hover .movie-info {
   display: inline-block;
 }
 
 
-header .nav-right ul li a {
-  text-decoration: none;
-  color: red;
-}
-
-
-
-
-
-/* DEBUGGGGGGG */
-
-body {
-  background-color: salmon;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2em;
-}
-
-/* MAIN */
-
-.lang-flag img {
-  max-width: 30px;
-}
-
-.all-movies-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.movie-container {
-  border: 1px solid black;
-  width: calc(100% / 5);
-  min-height: 150px;
-  margin: auto;
-  padding: 10px;
-}
-
-
-
-/* FLAG */
-
 .lang-flag {
-  max-height: 20px;
+  max-width: 20px;
 }
-
-/* STARS */
 
 .fas.fa-star {
   color: gold;
-}
-
-/* POSTER IMAGE */
-
-.poster-img img {
-  max-width: 100%;
 }

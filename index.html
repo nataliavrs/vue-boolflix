@@ -37,33 +37,27 @@
         <!-- right navigation bar  -->
         <nav class="nav-right">
 
-          <ul>
-            <!-- search input -->
-            <li>
+          <!-- search input -->
+          <div class="input-container">
 
-              <span><i class="fas fa-search"></i></span>
+            <span class="search-container">
+              <i class="fas fa-search"></i>
+            </span>
 
-              <input
-              type="text"
-              placeholder="Titles, people, genres"
-              v-model="userQuery"
-              v-on:keyup.enter="searchQuery()"
-                >
+            <input
+            type="text"
+            placeholder="Titles, people, genres"
+            v-model="userQuery"
+            v-on:keyup.enter="searchQuery()"
+              >
 
-              <input
-              type="button"
-              value="Search"
-              @click="searchQuery()"
-                >
+          </div>
 
-            </li>
-
-            <li> <a href="#"> <i class="fas fa-gift"></i></a> </li>
-            <li> <a href="#"> <i class="fas fa-bell"></i></a> </li>
-            <li> <a href="#"> <img src="img/avatar_icon.png" alt="User avatar"> </a> </li>
-            <li> <a href="#"><i class="fas fa-caret-down"></i></a></li>
-
-          </ul>
+          <!-- icons and avatar -->
+          <a href="#"> <i class="fas fa-gift"></i></a>
+          <a href="#"> <i class="fas fa-bell"></i></a>
+          <img src="img/avatar_icon.png" alt="User avatar">
+          <a href="#"><i class="fas fa-caret-down"></i></a>
 
         </nav>
 
@@ -72,15 +66,7 @@
       <!-- MAIN -->
       <main>
 
-        <!-- SEARCH MOVIE OR SERIES -->
-        <section>
-
-
-
-
-        </section>
-
-        <!-- MOVIES FOUND -->
+        <!-- MOVIES SECTION -->
         <section class="all-movies-container">
 
           <div
@@ -92,42 +78,45 @@
 
               <li class="poster-img">
                 <img :src="findPoster(index)" alt="">
-                <!-- <img :src="findBackDrop(index)" alt=""> -->
-              </li>
-
-              <li>Title: {{match.title}}</li>
-
-              <li>{{match.original_name}}</li>
-              <li>{{match.original_title}}</li>
-
-              <li>{{match.overview}}</li>
-
-              <li>Language:
-                <img :src="findFlag(index)" class="lang-flag"> {{match.original_language}}
               </li>
 
             </ul>
 
-            <!-- VOTE AVERAGE STARS -->
+            <!-- TEST MOVIE INFO ON HOVER -->
+            <div class="movie-info">
 
-            <div class="vote-stars">
+              <ul>
 
-              <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
-              </i>
+              <li>Title: {{match.title}}</li>
+              <li>Original Title: {{match.original_title}}</li>
+              <li class="overview-container">Overview: {{match.overview}}</li>
+              <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
 
-              <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
-              </i>
+              </ul>
 
-              <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
-              </i>
+              <!-- VOTE AVERAGE STARS -->
+              <div class="vote-stars">
 
-              <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
-              </i>
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
 
-              <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
-              </i>
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+              </div>
 
             </div>
+
+
 
           </div>
 
