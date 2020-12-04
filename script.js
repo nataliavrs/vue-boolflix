@@ -4,12 +4,13 @@ var app = new Vue({
     // SEARCH
     searchResults: [],
     userQuery: "",
+    // LANGUAGE FLAGS AVAILABLE
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskskslsvtrvi'
   },
   mounted: function () {
   },
   methods: {
-    // SEARCH INPUT
+    // SEARCH USER'S INPUT
     searchQuery: function () {
 
       // FETCH MOVIES FROM API
@@ -29,7 +30,8 @@ var app = new Vue({
       });
 
       // FETCH TV SERIES FROM API
-      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query=" + this.userQuery + "&page=1&include_adult=false"
+      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+       + this.userQuery + "&page=1&include_adult=false"
 
       axios.get(tvInfo)
       .then(series => {
@@ -43,7 +45,7 @@ var app = new Vue({
       });
 
     },
-    // FIND FLAG
+    // FIND LANGUAGE FLAG
     findFlag: function (lang) {
 
       if (this.flagsExist.includes(this.searchResults[lang].original_language)) {
@@ -53,6 +55,18 @@ var app = new Vue({
       }
 
     },
+    // FIND MOVIE/SERIES POSTER
+    findPoster: function (index) {
+
+      return "https://image.tmdb.org/t/p/" + "w780" + this.searchResults[index].poster_path
+
+
+    },
+    findBackDrop: function (index) {
+      
+      return "https://image.tmdb.org/t/p/" + "w780" + this.searchResults[index].backdrop_path
+
+    }
 
   },
 });

@@ -53,3 +53,9 @@ ul {
 .fas.fa-star {
   color: gold;
 }
+
+/* POSTER IMAGE */
+
+.poster-img img {
+  max-width: 100%;
+}
