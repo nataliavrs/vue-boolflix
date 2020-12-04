@@ -15,7 +15,52 @@
 
       <!-- HEADER -->
       <header>
-        <h1>Netflix</h1>
+
+        <!-- left navigation bar  -->
+        <nav class="nav-left">
+
+          <ul>
+            <img src="img/netflix_logo.png" alt="Netflix logo">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Tv Shows</a></li>
+            <li><a href="#">Movies</a></li>
+            <li><a href="#">News & Popular</a></li>
+            <li><a href="#">My list</a></li>
+          </ul>
+
+        </nav>
+
+        <!-- right navigation bar  -->
+        <nav class="nav-right">
+
+          <ul>
+            <!-- search input -->
+            <li>
+
+              <span><i class="fas fa-search"></i></span>
+              <input
+              type="text"
+              placeholder="Titles, people, genres"
+              v-model="userQuery"
+              v-on:keyup.enter="searchQuery()"
+                >
+
+              <input
+              type="button"
+              value="Search"
+              @click="searchQuery()"
+                >
+
+            </li>
+
+            <li> <a href="#"> <i class="fas fa-gift"></i></a> </li>
+            <li> <a href="#"> <i class="fas fa-bell"></i></a> </li>
+            <li> <a href="#"> <img src="img/avatar_icon.png" alt="User avatar"> </a> </li>
+            <li> <a href="#"><i class="fas fa-caret-down"></i></a></li>
+          </ul>
+
+        </nav>
+
       </header>
 
       <!-- MAIN -->
@@ -24,18 +69,8 @@
         <!-- SEARCH MOVIE OR SERIES -->
         <section>
 
-          <input
-          type="text"
-          placeholder="Insert title"
-          v-model="userQuery"
-          v-on:keyup.enter="searchQuery()"
-            >
 
-          <input
-          type="button"
-          value="Search"
-          @click="searchQuery()"
-            >
+
 
         </section>
 
@@ -58,6 +93,8 @@
 
               <li>{{match.original_name}}</li>
               <li>{{match.original_title}}</li>
+
+              <li>{{match.overview}}</li>
 
               <li>Language:
                 <img :src="findFlag(index)" class="lang-flag"> {{match.original_language}}

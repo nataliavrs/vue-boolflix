@@ -58,12 +58,12 @@ var app = new Vue({
     // FIND MOVIE/SERIES POSTER
     findPoster: function (index) {
 
-      return "https://image.tmdb.org/t/p/" + "w780" + this.searchResults[index].poster_path
+      return "https://image.tmdb.org/t/p/" + "w342" + this.searchResults[index].poster_path
 
 
     },
     findBackDrop: function (index) {
-      
+
       return "https://image.tmdb.org/t/p/" + "w780" + this.searchResults[index].backdrop_path
 
     }

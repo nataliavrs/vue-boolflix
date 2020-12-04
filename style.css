@@ -8,7 +8,60 @@
   font-family: 'Lato', sans-serif;
 }
 
-/* DEBUG */
+/* HEADER */
+
+header {
+  max-height: 10vh;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+header img {
+  max-width: 9%;
+}
+
+/* left navigation bar */
+
+header .nav-left, .nav-right {
+  width: 50%;
+}
+
+header .nav-left ul li  {
+  display: inline-block;
+
+}
+
+header .nav-left ul li a {
+  text-decoration: none;
+  color: red;
+}
+
+/* right navigation bar */
+
+header .nav-right ul li  {
+  display: inline-block;
+
+}
+
+header .nav-right ul li a {
+  text-decoration: none;
+  color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DEBUGGGGGGG */
 
 body {
   background-color: salmon;
