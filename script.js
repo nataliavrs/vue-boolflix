@@ -2,7 +2,6 @@ var app = new Vue({
   el: '#app',
   data: {
     // SEARCH
-    // searchResults: [],
     moviesResults: [],
     showsResults: [],
     userQuery: "",
@@ -56,7 +55,7 @@ var app = new Vue({
 
         for (var i = 0; i < movie.data.results.length; i++) {
 
-          this.searchResults.push(movie.data.results[i]);
+          this.moviesResults.push(movie.data.results[i]);
 
         }
 
@@ -71,7 +70,7 @@ var app = new Vue({
 
         for (var i = 0; i < shows.data.results.length; i++) {
 
-          this.searchResults.push(shows.data.results[i]);
+          this.showsResults.push(shows.data.results[i]);
 
         }
 
@@ -93,14 +92,11 @@ var app = new Vue({
     // FIND MOVIE/SHOWS POSTER
     findPoster: function (index, match) {
 
-
       if (match.first_air_date) {
         return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
       } else {
         return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
       }
-
-
 
     },
     // SMALL IMAGE
