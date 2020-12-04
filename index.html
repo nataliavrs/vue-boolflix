@@ -7,7 +7,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <link rel="stylesheet" href="style.css">
-    <title>BoolFlix</title>
+    <title>Netflix</title>
   </head>
   <body>
 
@@ -71,18 +71,18 @@
 
           <div
             class="movie-container"
-            v-for="(match, index) in searchResults"
+            v-for="(match, index) in moviesResults"
             >
 
             <ul>
 
               <li class="poster-img">
-                <img :src="findPoster(index)" alt="">
+                <img :src="findPoster(index, match)" alt="">
               </li>
 
             </ul>
 
-            <!-- TEST MOVIE INFO ON HOVER -->
+            <!-- MOVIE INFO ON HOVER -->
             <div class="movie-info">
 
               <ul>
@@ -116,15 +116,86 @@
 
             </div>
 
+          </div>
 
+        </section>
+
+        <!-- TV SHOWS SECTION -->
+        <section class="all-shows-container">
+
+          <div
+            class="shows-container"
+            v-for="(match, index) in showsResults"
+            >
+
+            <ul>
+
+              <li class="poster-img">
+                <img :src="findPoster(index, match)" alt="">
+              </li>
+
+            </ul>
+
+            <!-- TV SHOWS INFO ON HOVER -->
+            <div class="shows-info">
+
+              <ul>
+                <li>Title: {{match.name}}</li>
+                <li>Original Title: {{match.original_name}}</li>
+                <li class="overview-container">Overview: {{match.overview}}</li>
+                <li>{{match.first_air_date}}</li>
+                <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
+              </ul>
+
+              <!-- VOTE AVERAGE STARS -->
+              <div class="vote-stars">
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+                <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
+                </i>
+
+              </div>
+
+            </div>
 
           </div>
 
         </section>
 
       </main>
+
       <!-- FOOTER -->
       <footer>
+
+        <div class="social-logo">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="#">Audio and Subtitles</a></li>
+          <li><a href="#">Media and Center</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Audio Description</a></li>
+          <li><a href="#">Investor Relations</a></li>
+          <li><a href="#">Legal Notices</a></li>
+          <li><a href="#">Help Center</a></li>
+        </ul>
+
       </footer>
 
 
