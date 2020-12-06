@@ -19,9 +19,6 @@
         <!-- left navigation bar  -->
         <nav class="nav-left">
 
-          <!-- CAN'T ALIGN -->
-          <!-- <a href="#" class="logo"> <img src="img/netflix_logo.png" alt="Netflix logo"></a>  -->
-
           <img src="img/netflix_logo.png" alt="Netflix logo">
 
           <ul>
@@ -48,8 +45,9 @@
             type="text"
             placeholder="Titles, people, genres"
             v-model="userQuery"
-            v-on:keyup.enter="searchQuery()"
+            v-on:keyup="searchQuery()"
               >
+              <!-- v-on:keydown.enter="searchQuery()" -->
 
           </div>
 
@@ -75,44 +73,24 @@
             >
 
             <ul>
-
               <li class="poster-img">
                 <img :src="findPoster(index, match)" alt="">
               </li>
-
             </ul>
 
             <!-- MOVIE INFO ON HOVER -->
             <div class="movie-info">
 
               <ul>
-
-              <li>Title: {{match.title}}</li>
-              <li>Original Title: {{match.original_title}}</li>
-              <li class="overview-container">Overview: {{match.overview}}</li>
-              <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
-
+                <li>Title: {{match.title}}</li>
+                <li>Original Title: {{match.original_title}}</li>
+                <li class="overview-container">Overview: {{match.overview}}</li>
+                <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
+                <li>
+                  <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
+                  </i>
+                </li>
               </ul>
-
-              <!-- VOTE AVERAGE STARS -->
-              <div class="vote-stars">
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-              </div>
 
             </div>
 
@@ -129,11 +107,9 @@
             >
 
             <ul>
-
               <li class="poster-img">
                 <img :src="findPoster(index, match)" alt="">
               </li>
-
             </ul>
 
             <!-- TV SHOWS INFO ON HOVER -->
@@ -145,27 +121,11 @@
                 <li class="overview-container">Overview: {{match.overview}}</li>
                 <li>{{match.first_air_date}}</li>
                 <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
+                <li>
+                  <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
+                  </i>
+                </li>
               </ul>
-
-              <!-- VOTE AVERAGE STARS -->
-              <div class="vote-stars">
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=1 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=2 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=3 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=4 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-                <i v-bind:class="Math.ceil(match.vote_average / 2) >=5 ? 'fas fa-star' : 'far fa-star' ">
-                </i>
-
-              </div>
 
             </div>
 
