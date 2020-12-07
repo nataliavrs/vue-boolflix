@@ -1,18 +1,19 @@
 var app = new Vue({
   el: '#app',
   data: {
+    // show overview test
+    show: '',
     // SEARCH
     moviesResults: [],
     showsResults: [],
     userQuery: "",
-    // LANGUAGE FLAGS AVAILABLE
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskslsvtrvi'
   },
   mounted: function () {
     // FETCH MOVIES FROM API
     const movieInfo =
     "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-     + "harry" + "&page=1&include_adult=true"
+     + "prada" + "&page=1&include_adult=true"
 
     axios.get(movieInfo)
     .then(movie => {
@@ -27,7 +28,7 @@ var app = new Vue({
 
     // FETCH TV SHOWS FROM API
     const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-     + "harry" + "&page=1&include_adult=true"
+     + "black" + "&page=1&include_adult=true"
 
     axios.get(tvInfo)
     .then(shows => {
@@ -93,12 +94,14 @@ var app = new Vue({
 
     },
     // FIND MOVIE/SHOWS POSTER
-    findPoster: function (index, match) {
+    findPoster: function (match, index) {
 
-      if (match.first_air_date) {
+      if (match.first_air_date && match.poster_path != null) {
         return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
-      } else {
+      } else if (match.original_title && match.poster_path != null) {
         return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
+      } else {
+        return "img/no-cover.png"
       }
 
     },
@@ -106,6 +109,14 @@ var app = new Vue({
     findBackDrop: function (index) {
 
       return "https://image.tmdb.org/t/p/" + "w780" + this.moviesResults[index].backdrop_path
+
+    },
+    showOverview: function () {
+      if (this.show == '') {
+        this.show = 'show-info';
+      } else {
+        this.show = '';
+      }
 
     }
 

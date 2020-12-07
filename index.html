@@ -65,26 +65,28 @@
       <main>
 
         <!-- MOVIES SECTION -->
+        <h1 class="section-title">Movies <i class="fas fa-chevron-right"></i></h1>
         <section class="all-movies-container">
 
           <div
             class="movie-container"
             v-for="(match, index) in moviesResults"
             >
-            
-            <ul>
-              <li class="poster-img">
-                <img :src="findPoster(index, match)" alt="">
-              </li>
-            </ul>
+
+            <img class="poster-img" :src="findPoster(match, index)">
+            <p class="no-poster" v-if="match.poster_path === null" style="color: red"> {{match.original_title}} </p>
 
             <!-- MOVIE INFO ON HOVER -->
             <div class="movie-info">
 
               <ul>
-                <li>Title: {{match.title}}</li>
-                <li>Original Title: {{match.original_title}}</li>
-                <li class="overview-container">Overview: {{match.overview}}</li>
+                <li class="title">{{match.title}}</li>
+                <li v-if="match.title != match.original_title">Original Title: {{match.original_title}}</li>
+                <li>
+                  <i @click="showOverview" class="fas fa-chevron-down"></i>
+                  <li class="overview-container" :class="show">Overview: {{match.overview}}</li>
+                </li>
+
                 <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
                 <li>
                   <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
@@ -99,25 +101,25 @@
         </section>
 
         <!-- TV SHOWS SECTION -->
+
+        <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1>
         <section class="all-shows-container">
+
 
           <div
             class="shows-container"
             v-for="(match, index) in showsResults"
             >
 
-            <ul>
-              <li class="poster-img">
-                <img :src="findPoster(index, match)" alt="">
-              </li>
-            </ul>
+            <img class="poster-img" :src="findPoster(match, index)">
+            <p class="no-poster" v-if="match.poster_path === null" style="color: white;"> {{match.original_name}} </p>
 
             <!-- TV SHOWS INFO ON HOVER -->
             <div class="shows-info">
 
               <ul>
-                <li>Title: {{match.name}}</li>
-                <li>Original Title: {{match.original_name}}</li>
+                <li class="title">{{match.name}}</li>
+                <li v-if="match.name != match.original_name">Original Title: {{match.original_name}}</li>
                 <li class="overview-container">Overview: {{match.overview}}</li>
                 <li>{{match.first_air_date}}</li>
                 <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
@@ -139,22 +141,11 @@
       <footer>
 
         <div class="social-logo">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/netflixitalia/"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/netflix/"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com/netflix"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.youtube.com/user/NewOnNetflix"><i class="fab fa-youtube"></i></a>
         </div>
-
-        <ul class="footer-links">
-          <li><a href="#">Audio and Subtitles</a></li>
-          <li><a href="#">Media and Center</a></li>
-          <li><a href="#">Privacy</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Audio Description</a></li>
-          <li><a href="#">Investor Relations</a></li>
-          <li><a href="#">Legal Notices</a></li>
-          <li><a href="#">Help Center</a></li>
-        </ul>
 
       </footer>
 
