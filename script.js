@@ -13,7 +13,7 @@ var app = new Vue({
     // FETCH MOVIES FROM API
     const movieInfo =
     "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-     + "prada" + "&page=1&include_adult=true"
+     + "britney" + "&page=1&include_adult=true"
 
     axios.get(movieInfo)
     .then(movie => {
@@ -41,46 +41,87 @@ var app = new Vue({
 
     });
 
+
   },
   methods: {
     // SEARCH USER'S INPUT
     searchQuery: function () {
 
       this.moviesResults = [];
-
-      // FETCH MOVIES FROM API
-      const movieInfo =
-      "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-       + this.userQuery + "&page=1&include_adult=false"
-
-      axios.get(movieInfo)
-      .then(movie => {
-
-        for (var i = 0; i < movie.data.results.length; i++) {
-
-          this.moviesResults.push(movie.data.results[i]);
-
-        }
-
-      });
-
-      // FETCH TV SHOWS FROM API
-
       this.showsResults = [];
 
-      const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-       + this.userQuery + "&page=1&include_adult=false"
+      if (this.userQuery == '') {
 
-      axios.get(tvInfo)
-      .then(shows => {
+        const movieInfo =
+        "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+         + "britney" + "&page=1&include_adult=true"
 
-        for (var i = 0; i < shows.data.results.length; i++) {
+        axios.get(movieInfo)
+        .then(movie => {
 
-          this.showsResults.push(shows.data.results[i]);
+          for (var i = 0; i < movie.data.results.length; i++) {
 
-        }
+            this.moviesResults.push(movie.data.results[i]);
 
-      });
+          }
+
+        });
+
+        // FETCH TV SHOWS FROM API
+
+        const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+         + "black" + "&page=1&include_adult=true"
+
+        axios.get(tvInfo)
+        .then(shows => {
+
+          for (var i = 0; i < shows.data.results.length; i++) {
+
+            this.showsResults.push(shows.data.results[i]);
+
+          }
+
+        });
+
+      } else {
+
+        // FETCH MOVIES FROM API
+
+        this.movieResults = [];
+
+        const movieInfo =
+        "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+         + this.userQuery + "&page=1&include_adult=false"
+
+        axios.get(movieInfo)
+        .then(movie => {
+
+          for (var i = 0; i < movie.data.results.length; i++) {
+
+            this.moviesResults.push(movie.data.results[i]);
+
+          }
+
+        });
+
+        // FETCH TV SHOWS FROM API
+
+        this.showsResults = [];
+
+        const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+         + this.userQuery + "&page=1&include_adult=false"
+
+        axios.get(tvInfo)
+        .then(shows => {
+
+          for (var i = 0; i < shows.data.results.length; i++) {
+
+            this.showsResults.push(shows.data.results[i]);
+
+          }
+
+        });
+      }
 
     },
     // FIND LANGUAGE FLAG
@@ -111,14 +152,16 @@ var app = new Vue({
       return "https://image.tmdb.org/t/p/" + "w780" + this.moviesResults[index].backdrop_path
 
     },
-    showOverview: function () {
+    // OVERVIEW TOGGLE
+    showOverview: function (index) {
+
       if (this.show == '') {
         this.show = 'show-info';
       } else {
         this.show = '';
       }
 
-    }
+    },
 
   },
 });

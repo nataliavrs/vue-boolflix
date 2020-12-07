@@ -47,7 +47,6 @@
             v-model="userQuery"
             v-on:keyup="searchQuery()"
               >
-              <!-- v-on:keydown.enter="searchQuery()" -->
 
           </div>
 
@@ -74,7 +73,7 @@
             >
 
             <img class="poster-img" :src="findPoster(match, index)">
-            <p class="no-poster" v-if="match.poster_path === null" style="color: red"> {{match.original_title}} </p>
+            <p class="no-poster" v-if="match.poster_path === null" style="color: grey"> {{match.original_title}} </p>
 
             <!-- MOVIE INFO ON HOVER -->
             <div class="movie-info">
@@ -83,7 +82,7 @@
                 <li class="title">{{match.title}}</li>
                 <li v-if="match.title != match.original_title">Original Title: {{match.original_title}}</li>
                 <li>
-                  <i @click="showOverview" class="fas fa-chevron-down"></i>
+                  <i @click="showOverview(index)" class="fas fa-chevron-down"></i>
                   <li class="overview-container" :class="show">Overview: {{match.overview}}</li>
                 </li>
 
@@ -101,10 +100,8 @@
         </section>
 
         <!-- TV SHOWS SECTION -->
-
         <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1>
         <section class="all-shows-container">
-
 
           <div
             class="shows-container"
@@ -112,7 +109,7 @@
             >
 
             <img class="poster-img" :src="findPoster(match, index)">
-            <p class="no-poster" v-if="match.poster_path === null" style="color: white;"> {{match.original_name}} </p>
+            <p class="no-poster" v-if="match.poster_path === null" style="color: grey;"> {{match.original_name}} </p>
 
             <!-- TV SHOWS INFO ON HOVER -->
             <div class="shows-info">
@@ -146,6 +143,8 @@
           <a href="https://twitter.com/netflix"><i class="fab fa-twitter"></i></a>
           <a href="https://www.youtube.com/user/NewOnNetflix"><i class="fab fa-youtube"></i></a>
         </div>
+
+        <h4> © 1997-2020 Netflix, Inc. </h4>
 
       </footer>
 

@@ -8,28 +8,37 @@
   font-family: 'Lato', sans-serif;
 }
 
-/* DEBUGGGGGGG */
-
 body {
   background-color: black;
 }
 
-/* END DEBUG */
-
 /* HEADER */
 
 header {
-  max-height: 10vh;
+  position: fixed;
+  z-index: 99;
   background-color: black;
   display: flex;
   justify-content: space-between;
+  top: 0;
+  padding: 5px 30px;
+  align-items: center;
 }
 
 header .nav-left, .nav-right {
-  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+header .nav-right {
+  width: 40%;
 }
 
 /* left navigation bar */
+
+header .nav-left {
+  width: 60%;
+}
 
 header .nav-left * {
   display: inline-block;
@@ -38,11 +47,13 @@ header .nav-left * {
 
 header .nav-left img {
   max-width: 15%;
+  margin-right: 30px;
 }
 
 
 header .nav-left ul li {
   display: inline-block;
+  padding: 0 10px;
 }
 
 a {
@@ -68,19 +79,46 @@ header .nav-right a {
   text-decoration: none;
   color: white;
   display: inline-block;
+  padding: 10px;
 }
 
-.search-container {
-  background-color: red;
-  color: white;
+header .nav-right i {
+  font-size: 1.4em;
 }
 
 .input-container {
-  border-radius: solid 1px red;
-  background-color:
+  border: solid 1px white;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+.search-container {
+  color: white;
+  background-color: black;
+  margin-right: 10px;
+  margin-left: 5px;
+  font-size: .9em;
+}
+
+.input-container input {
+  background-color: black;
+  color: lightgrey;
+  border: 0;
+  height: 100%;
+  padding: 7px 0;
+  width: 20vw;
+}
+
+.input-container input::placeholder {
+  color: grey;
 }
 
 /* MAIN: MOVIES & SHOWS SECTION */
+
+main {
+  margin-top: 50px;
+}
 
 .all-movies-container, .all-shows-container {
   display: flex;
@@ -203,13 +241,21 @@ header .nav-right a {
 /* FOOTER */
 
 footer {
-  display: none;
+  min-height: 10vh;
+  margin: 5px;
+}
+
+footer * {
   text-align: center;
-  min-height: 8vh;
+  color: lightgrey;
 }
 
 footer i {
   padding: 10px;
-  font-size: 2em;
-  color: lightgrey;
+  font-size: 1.4em;
+}
+
+footer h4 {
+  font-weight: normal;
+  font-size: .9em;
 }
