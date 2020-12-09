@@ -30,10 +30,6 @@ header .nav-left, .nav-right {
   align-items: center;
 }
 
-header .nav-right {
-  width: 40%;
-}
-
 /* left navigation bar */
 
 header .nav-left {
@@ -57,7 +53,7 @@ header .nav-left ul li {
 }
 
 a {
-  text-decoration: none;,
+  text-decoration: none;
 }
 
 ul {
@@ -65,6 +61,10 @@ ul {
 }
 
 /* right navigation bar */
+
+header .nav-right {
+  width: 40%;
+}
 
 header .nav-right * {
   display: inline-block;
@@ -120,6 +120,14 @@ main {
   margin-top: 50px;
 }
 
+.section-title {
+  font-size: 1.5em;
+  color: white;
+  margin-left: 30px;
+  margin-top: 10px;
+
+}
+
 .all-movies-container, .all-shows-container {
   display: flex;
   flex-wrap: nowrap;
@@ -150,7 +158,6 @@ main {
 .overview-container {
   display: none;
 }
-
 
 .movie-info, .shows-info {
   width: 100%;
@@ -221,9 +228,6 @@ main {
   visibility: hidden;
 }
 
-.extra-container span {
-  color: white;
-}
 
 /* OVERVIEW */
 
@@ -248,6 +252,7 @@ main {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  color: grey;
 }
 
 /* FLAG AND STAR */
@@ -262,16 +267,6 @@ main {
 
 .far.fa-star {
   color: grey;
-}
-
-/* OTHERS */
-
-.section-title {
-  font-size: 1.5em;
-  color: white;
-  margin-left: 30px;
-  margin-top: 10px;
-
 }
 
 

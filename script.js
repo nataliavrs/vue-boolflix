@@ -3,7 +3,7 @@ var app = new Vue({
   data: {
     // actor test
     testname: [],
-    // genres
+    // genres test
     allGenres: [],
     // show overview test
     show: '',
@@ -154,3 +154,4 @@ var app = new Vue({
 
   },
 });
+
