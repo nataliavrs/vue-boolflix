@@ -1,60 +1,68 @@
 var app = new Vue({
   el: '#app',
   data: {
-    // actor test
+    // DEBUG:
+
+    // 1. cast 
     testname: [],
-    // genres test
+    // 2. genres
     allGenres: [],
-    // show overview test
+    // 3. show more info
     show: '',
-    // SEARCH
+
+    // SEARCH INPUT
+    userQuery: "",
+    // search results
     moviesResults: [],
     showsResults: [],
-    userQuery: "",
+    // FLAG IMGS AVAILABLE
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskslsvtrvi'
   },
   mounted: function () {
-    // FETCH MOVIES FROM API
-    const movieInfo =
-    "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-     + "britney" + "&page=1&include_adult=true"
 
-    axios.get(movieInfo)
-    .then(movie => {
+    // // API CALLS TO SHOW DEFAULT RESULTS
 
-      for (var i = 0; i < movie.data.results.length; i++) {
+    // // FETCH MOVIES FROM API
+    // const movieInfo =
+    // "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+    //  + "britney" + "&page=1&include_adult=false"
 
-        this.moviesResults.push(movie.data.results[i]);
+    // axios.get(movieInfo)
+    // .then(movie => {
 
-      }
+    //   for (var i = 0; i < movie.data.results.length; i++) {
 
-    });
+    //     this.moviesResults.push(movie.data.results[i]);
 
-    // FETCH TV SHOWS FROM API
-    const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-     + "black" + "&page=1&include_adult=true"
+    //   }
 
-    axios.get(tvInfo)
-    .then(shows => {
+    // });
 
-      for (var i = 0; i < shows.data.results.length; i++) {
+    // // FETCH TV SHOWS FROM API
+    // const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+    //  + "black" + "&page=1&include_adult=false"
 
-        this.showsResults.push(shows.data.results[i]);
+    // axios.get(tvInfo)
+    // .then(shows => {
 
-      }
+    //   for (var i = 0; i < shows.data.results.length; i++) {
 
-    });
+    //     this.showsResults.push(shows.data.results[i]);
+
+    //   }
+
+    // });
 
   },
   methods: {
     // SEARCH USER'S INPUT
     searchQuery: function () {
 
+      // empty results on key pressed
       this.moviesResults = [];
       this.showsResults = [];
 
       // FETCH MOVIES FROM API
-
       const movieInfo =
       "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
        + this.userQuery + "&page=1&include_adult=false"
@@ -66,14 +74,14 @@ var app = new Vue({
 
           this.moviesResults.push(movie.data.results[i]);
 
+          this.fetchCast();
+              
         }
-
+         
       });
-
+            
       // FETCH TV SHOWS FROM API
-
-      this.showsResults = [];
-
+      
       const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
        + this.userQuery + "&page=1&include_adult=false"
 
@@ -89,16 +97,42 @@ var app = new Vue({
       });
 
 
+    },
+    // FETCH ACTORS NAMES
+    fetchCast: function () {
+
+      this.moviesResults.forEach(element => {
+        
+        const creditsList = 
+        "https://api.themoviedb.org/3/movie/" + element.id + "/credits?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US";
+
+        axios.get(creditsList)
+        .then(cast => {
+
+          element.cast = [];
+          var numberActors = 5;
+
+          for (let i = 0; i < numberActors; i++) {
+                        
+            element.cast.push(cast.data.cast[i].name);
+            
+          }
+                                                                                     
+      });
+
+      });
+
+      
 
     },
     // FIND LANGUAGE FLAG
     findFlag: function (lang) {
 
-      if (this.flagsExist.includes(this.moviesResults[lang].original_language)) {
-        return  "img/flag-lang/" + this.moviesResults[lang].original_language + ".png"
-      } else {
-        return  "img/flag-lang/world.png"
-      }
+      // if (this.flagsExist.includes(this.moviesResults[lang].original_language)) {
+      //   return  "img/flag-lang/" + this.moviesResults[lang].original_language + ".png"
+      // } else {
+      //   return  "img/flag-lang/world.png"
+      // }
 
     },
     // FIND MOVIE/SHOWS POSTER
@@ -113,12 +147,6 @@ var app = new Vue({
       }
 
     },
-    // SMALL IMAGE
-    findBackDrop: function (index) {
-
-      return "https://image.tmdb.org/t/p/" + "w780" + this.moviesResults[index].backdrop_path
-
-    },
     // OVERVIEW TOGGLE
     showOverview: function () {
 
@@ -129,29 +157,6 @@ var app = new Vue({
       }
 
     },
-    // GET CAST LIST
-    getCast: function (match, index) {
-
-      // FETCH CAST LIST FROM API
-      const castList =
-      "https://api.themoviedb.org/3/movie/"
-      + match.id +
-      "/credits?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US"
-
-      axios.get(castList)
-      .then(list => {
-
-        this.testname = list.data.cast
-        console.log(list.data.cast);
-        // console.log(list.data.cast[0].name);
-        // this.testname = list.data.cast[0].name;
-
-      });
-
-
-    }
-
-
   },
 });
 

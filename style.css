@@ -217,15 +217,16 @@ main {
 }
 
 .show-info {
-  /* display: inline-block !important; */
-  visibility: visible !important;
+  display: inline-block !important;
+  /* visibility: visible !important; */
 
 }
 
 .extra-container {
   padding: 10px;
   margin-bottom: 5px;
-  visibility: hidden;
+  display: none;
+  width: 100%;
 }
 
 

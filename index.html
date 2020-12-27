@@ -44,10 +44,10 @@
             <input
             type="text"
             placeholder="Titles, people, genres"
-            v-model="userQuery"
-            v-on:keyup="searchQuery()"
+            v-model="userQuery"            
+            v-on:keyup.enter="searchQuery()"
               >
-
+              <!-- v-on:keyup="searchQuery()" -->
           </div>
 
           <!-- icons and avatar -->
@@ -95,7 +95,7 @@
               </div>
 
               <ul>
-                <!-- title -->
+                <!-- main info -->
                 <li class="title">{{match.title}}</li>
                 <li v-if="match.title != match.original_title">Original Title: {{match.original_title}}</li>
                 <!-- vote stars -->
@@ -110,9 +110,17 @@
               <!-- extra info -->
               <div class="extra-container" :class="show">
                 <!-- overview -->
-                <span class="overview">Overview: {{match.overview}}</span>
+                <!-- <span class="overview">Overview: {{match.overview}}</span> -->
                 <!-- cast -->
-                <span>Cast: Britney Spears, Heath Ledger, Pinco Pallino, Audrey Plaza, Mackenzie Evans</span>
+                <span>Cast:
+                <span v-for="actor in match.cast"> 
+                  {{actor}}                
+                </span>
+              </span>
+                
+
+
+
                 <!-- language -->
                 <span>Language: <img :src="findFlag(index)" class="lang-flag"></span>
               </div>
