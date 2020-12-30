@@ -1,14 +1,12 @@
 var app = new Vue({
   el: '#app',
   data: {
-    // DEBUG:
 
-    // 1. cast 
-    testname: [],
-    // 2. genres
-    allGenres: [],
+    // DEBUG:
     // 3. show more info
-    show: '',
+    indexMovie: "",
+
+    moviesGenres: [],
 
     // SEARCH INPUT
     userQuery: "",
@@ -17,7 +15,7 @@ var app = new Vue({
     showsResults: [],
     // FLAG IMGS AVAILABLE
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskslsvtrvi'
-  },
+  },  
   mounted: function () {
 
     // // API CALLS TO SHOW DEFAULT RESULTS
@@ -53,6 +51,9 @@ var app = new Vue({
 
     // });
 
+    this.fetchGenres();
+    // console.log("mounted log", this.fetchGenres());
+
   },
   methods: {
     // SEARCH USER'S INPUT
@@ -73,12 +74,16 @@ var app = new Vue({
         for (var i = 0; i < movie.data.results.length; i++) {
 
           this.moviesResults.push(movie.data.results[i]);
+          this.moviesResults[i].show = false;
+          console.log(this.moviesResults[i]);
 
-          this.fetchCast();
+          this.fetchCast();          
               
         }
          
       });
+
+      // this.fetchGenres();
             
       // FETCH TV SHOWS FROM API
       
@@ -113,9 +118,9 @@ var app = new Vue({
           var numberActors = 5;
 
           for (let i = 0; i < numberActors; i++) {
-                        
-            element.cast.push(cast.data.cast[i].name);
             
+            element.cast.push(cast.data.cast[i].name);                                    
+
           }
                                                                                      
       });
@@ -128,11 +133,11 @@ var app = new Vue({
     // FIND LANGUAGE FLAG
     findFlag: function (lang) {
 
-      // if (this.flagsExist.includes(this.moviesResults[lang].original_language)) {
-      //   return  "img/flag-lang/" + this.moviesResults[lang].original_language + ".png"
-      // } else {
-      //   return  "img/flag-lang/world.png"
-      // }
+      if (this.flagsExist.includes(this.moviesResults[lang].original_language)) {
+        return  "img/flag-lang/" + this.moviesResults[lang].original_language + ".png"
+      } else {
+        return  "img/flag-lang/world.png"
+      }
 
     },
     // FIND MOVIE/SHOWS POSTER
@@ -148,15 +153,42 @@ var app = new Vue({
 
     },
     // OVERVIEW TOGGLE
-    showOverview: function () {
-
-      if (this.show == '') {
-        this.show = 'show-info';
-      } else {
-        this.show = '';
-      }
-
+    showInfo: function (index) {
+                
+      this.indexMovie = index;
+      
     },
-  },
-});
+    // FETCH GENRES LIST
+    fetchGenres: function () {
 
+      const genresList = "https://api.themoviedb.org/3/genre/movie/list?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US"
+
+      axios.get(genresList)
+      .then(genres => {
+       
+        this.moviesGenres = genres.data;
+       
+      });
+                                                                                        
+    },
+    // REPLACE GENRE ID WITH GENRE NAME
+    getGenreName: function (genreId) {
+            
+      let genereTitle = "";
+      
+      this.moviesGenres.genres.forEach(element => {
+        
+        if (element.id == genreId) {
+          // return element.name;
+          genereTitle = element.name;
+          // return 
+        }            
+      });
+
+      return genereTitle
+
+    }    
+    //// END METHODS ////
+  },
+  
+});

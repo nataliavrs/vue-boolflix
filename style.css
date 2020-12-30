@@ -216,7 +216,7 @@ main {
   overflow: scroll;
 }
 
-.show-info {
+.showInfo {
   display: inline-block !important;
   /* visibility: visible !important; */
 
