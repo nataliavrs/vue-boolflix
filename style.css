@@ -12,6 +12,42 @@ body {
   background-color: black;
 }
 
+.noScroll {
+  overflow: hidden;
+}
+
+/* DEBUG */
+
+.extra-container {
+  color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.534);
+  height: 100%;
+  width: 100%;
+  text-align: center;    
+}
+
+.extra-container .info-window {
+  background-color: black;
+  border: solid 1px grey;
+  /* height: 100%; */
+  /* width: 100%; */
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+}
+
+.all-shows-container {
+  /* display: none !important; */
+}
+
 /* HEADER */
 
 header {
@@ -125,7 +161,6 @@ main {
   color: white;
   margin-left: 30px;
   margin-top: 10px;
-
 }
 
 .all-movies-container, .all-shows-container {
@@ -219,16 +254,24 @@ main {
 .showInfo {
   display: inline-block !important;
   /* visibility: visible !important; */
-
 }
 
-.extra-container {
+/* .extra-container {
   padding: 10px;
   margin-bottom: 5px;
   display: none;
-  width: 100%;
-}
-
+  width: 100vw;
+  height: 100vh;
+  background-color: red;
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  color: black;
+  font-size: 10rem;
+  text-align: center;
+  transform: translate(-50%, -50%);
+} */
 
 /* OVERVIEW */
 

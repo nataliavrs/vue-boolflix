@@ -2,10 +2,24 @@ var app = new Vue({
   el: '#app',
   data: {
 
-    // DEBUG:
-    // 3. show more info
+    // click more info window movie/tv
+    clickedMoreInfo: {
+      clickImg: "done",
+      clickTitle: "done",
+      clickOrigTitle: "done",
+      clickLanguage: "",
+      clickStars: "",
+      clickGenres: "",
+      clickCast: "",
+      clickOverview: "done",
+    },
+
+    showWindow: false,
+    // 
+
     indexMovie: "",
 
+    // movies genres
     moviesGenres: [],
 
     // SEARCH INPUT
@@ -75,7 +89,7 @@ var app = new Vue({
 
           this.moviesResults.push(movie.data.results[i]);
           this.moviesResults[i].show = false;
-          console.log(this.moviesResults[i]);
+          // console.log(this.moviesResults[i]);
 
           this.fetchCast();          
               
@@ -116,7 +130,7 @@ var app = new Vue({
 
           element.cast = [];
           var numberActors = 5;
-
+        
           for (let i = 0; i < numberActors; i++) {
             
             element.cast.push(cast.data.cast[i].name);                                    
@@ -126,36 +140,42 @@ var app = new Vue({
       });
 
       });
-
       
-
     },
     // FIND LANGUAGE FLAG
-    findFlag: function (lang) {
+    findFlag: function (match) {
 
-      if (this.flagsExist.includes(this.moviesResults[lang].original_language)) {
-        return  "img/flag-lang/" + this.moviesResults[lang].original_language + ".png"
+      if (this.flagsExist.includes(match.original_language)) {
+        return  "img/flag-lang/" + match.original_language + ".png"
       } else {
         return  "img/flag-lang/world.png"
       }
-
+      
     },
     // FIND MOVIE/SHOWS POSTER
     findPoster: function (match, index) {
 
-      if (match.first_air_date && match.poster_path != null) {
-        return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
-      } else if (match.original_title && match.poster_path != null) {
-        return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
+      if (match.poster_path != null) {
+        return "https://image.tmdb.org/t/p/" + "w342" + match.poster_path
       } else {
         return "img/no-cover.png"
       }
+
+      // if (match.first_air_date && match.poster_path != null) {
+      //   return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
+      // } else if (match.original_title && match.poster_path != null) {
+      //   return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
+      // } else {
+      //   return "img/no-cover.png"
+      // }
 
     },
     // OVERVIEW TOGGLE
     showInfo: function (index) {
                 
       this.indexMovie = index;
+
+      this.showInfo();
       
     },
     // FETCH GENRES LIST
@@ -187,8 +207,65 @@ var app = new Vue({
 
       return genereTitle
 
-    }    
+    },
+    // NEW WINDOW CLICKED MOVIE/TV SHOW
+    showInfoWindow: function (match, index) {
+
+      this.showWindow = true;
+
+      // WINDOW INFO
+      this.clickedMoreInfo.clickImg = "https://image.tmdb.org/t/p/" + "w342" + match.poster_path;
+
+      this.clickedMoreInfo.clickTitle = match.title;
+
+      this.clickedMoreInfo.clickOrigTitle = match.original_title;
+            
+      this.clickedMoreInfo.clickOverview = this.moviesResults[index].overview;
+
+      // clickedMoreInfo: {
+      //   clickImg: "done",
+      //   clickTitle: "",
+      //   clickOrigTitle: "",
+      //   clickLanguage: "",
+      //   clickStars: "",
+      //   clickGenres: "",
+      //   clickCast: "",
+      //   clickOverview: "done",
+      // },
+           
+    },
+    showImgWindow: function () {
+
+      // if (this.showsResults[index].first_air_date && this.showsResults[index].poster_path != null) {
+      //   return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
+      // } else if (this.moviesResults[index].original_title && this.moviesResults[index].poster_path != null) {
+      //   return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
+      // } else {
+      //   return "img/no-cover.png"
+      // }
+
+      if (match.first_air_date && match.poster_path != null) {
+        return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
+      } else if (match.original_title && match.poster_path != null) {
+        return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
+      } else {
+        return "img/no-cover.png"
+      }
+
+    }
     //// END METHODS ////
   },
   
 });
+
+// FUNCTION TO ENABLE AND DISABLE SCROLL OF BODY WHEN MOVIE/TV WINDOW IS OPENED 
+var body = document.getElementById("body");
+
+function disableScrollBody () {  
+  body.classList.add("noScroll");
+}
+
+function enableScrollBody () {
+  body.classList.remove("noScroll");
+}
+

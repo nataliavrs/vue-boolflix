@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Netflix</title>
   </head>
-  <body>
+  <body id="body">
 
     <div id="app">
 
@@ -62,11 +62,12 @@
 
       <!-- MAIN -->
       <main>
-
+        
         <!-- MOVIES SECTION -->
         <h1 class="section-title">Movies <i class="fas fa-chevron-right"></i></h1>
+        
         <section class="all-movies-container">
-
+      
           <div
             class="movie-container"
             v-for="(match, index) in moviesResults"
@@ -88,7 +89,10 @@
                 <div class="circle">
                   <i class="fas fa-play"></i>
                 </div>
-                <div class="circle" @click="showInfo(index)">
+                <div class="circle" 
+                      @click="showInfoWindow(match, index)"
+                      onclick="disableScrollBody()">
+                      <!-- @click="showInfo(index)" -->
                   <i class="fas fa-info-circle"></i>
                 </div>
 
@@ -106,24 +110,16 @@
                 <!-- genres -->                
                 <li v-for="genre in match.genre_ids">{{getGenreName(genre)}}</li>
                 <!-- <li v-for="genre in match.genre_ids">{{genre}}</li> -->
-                                
+                <li>Language:<img :src="findFlag(match, index)" class="lang-flag"></li>             
               </ul>
-
-              <!-- extra info -->
-              <div  class="extra-container"                  
-                    v-bind:class="(index === indexMovie ? 'showInfo' : '')"
-                  >
-
-                <span class="overview">Overview: {{match.overview}}</span>
-                <span>Cast: <span v-for="actor in match.cast"> {{actor}} </span>
-                </span>                                
-                <span>Language: <img :src="findFlag(index)" class="lang-flag"></span>
-                
-              </div>
-
+              
             </div>
 
+           
+
           </div>
+
+          
 
         </section>
 
@@ -147,7 +143,7 @@
                 <li v-if="match.name != match.original_name">Original Title: {{match.original_name}}</li>
                 <li class="overview-container">Overview: {{match.overview}}</li>
                 <li>{{match.first_air_date}}</li>
-                <li>Language:<img :src="findFlag(index)" class="lang-flag"></li>
+                <li>Language:<img :src="findFlag(match, index)" class="lang-flag"></li>
                 <li>
                   <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
                   </i>
@@ -176,6 +172,20 @@
 
       </footer>
 
+      <!-- MOVIE/TVSHOW WINDOW WHEN INFO ICON IS CLICKED -->
+      <div v-if="showWindow" onclick="enableScrollBody()" class="extra-container" @click="showWindow = false">
+
+        <div class="info-window">          
+          <img :src="clickedMoreInfo.clickImg" alt="">
+          <ul>
+            <li class="overview">{{clickedMoreInfo.clickTitle}}</li>
+            <li class="overview">{{clickedMoreInfo.clickOrigTitle}}</li>
+            <li class="overview">Overview: {{clickedMoreInfo.clickOverview}}</li>
+          </ul>
+                                  
+        </div>
+
+      </div>
 
     </div>
 
