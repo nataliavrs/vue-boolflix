@@ -83,23 +83,10 @@
 
             <!-- MOVIE INFO ON HOVER -->
             <div class="movie-info">
-
-              <!-- icons -->
-              <div class="info-icons">
-                <div class="circle">
-                  <i class="fas fa-play"></i>
-                </div>
-                <div class="circle" 
-                      @click="showInfoWindow(match, index)"
-                      onclick="disableScrollBody()">
-                      <!-- @click="showInfo(index)" -->
-                  <i class="fas fa-info-circle"></i>
-                </div>
-
-              </div>
-
+            
+              <!-- all info list -->
               <ul>
-                <!-- main info -->
+                <!-- titles -->
                 <li class="title">{{match.title}}</li>
                 <li v-if="match.title != match.original_title">Original Title: {{match.original_title}}</li>
                 <!-- vote stars -->
@@ -107,35 +94,49 @@
                   <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
                   </i>
                 </li>
+
+
+                <!-- icons (div inside list might be bad idea) -->
+                <div class="info-icons">
+                  <div class="circle">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="circle" 
+                        @click="showInfoWindow(match, index)"
+                        onclick="disableScrollBody()">
+                        <!-- @click="showInfo(index)" -->
+                    <i class="fas fa-info-circle"></i>
+                  </div>
+                </div>
+
                 <!-- genres -->                
-                <li v-for="genre in match.genre_ids">{{getGenreName(genre)}}</li>
-                <!-- <li v-for="genre in match.genre_ids">{{genre}}</li> -->
-                <li>Language:<img :src="findFlag(match, index)" class="lang-flag"></li>             
-              </ul>
-              
-            </div>
-
+                <li class="genres" v-for="genre in match.genre_ids">{{getGenreName(genre)}} 
+                </li>
+                
+                <!-- language flag -->
+                <li class="lang-flag"> Language: 
+                  <img :src="findFlag(match, index)" class="flag">
+                </li>             
            
-
+            </div>
+           
           </div>
-
           
-
         </section>
 
         <!-- TV SHOWS SECTION -->
-        <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1>
-        <section class="all-shows-container">
+        <!-- <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1> -->
+        <!-- <section class="all-shows-container">
 
           <div
-            class="shows-container"
+            class="show-container"
             v-for="(match, index) in showsResults"
             >
 
             <img class="poster-img" :src="findPoster(match, index)">
             <p class="no-poster" v-if="match.poster_path === null"> {{match.original_name}} </p>
 
-            <!-- TV SHOWS INFO ON HOVER -->
+            
             <div class="shows-info">
 
               <ul>
@@ -154,7 +155,7 @@
 
           </div>
 
-        </section>
+        </section> -->
 
       </main>
 
@@ -173,16 +174,31 @@
       </footer>
 
       <!-- MOVIE/TVSHOW WINDOW WHEN INFO ICON IS CLICKED -->
-      <div v-if="showWindow" onclick="enableScrollBody()" class="extra-container" @click="showWindow = false">
+      <div v-if="showWindow"
+          onclick="enableScrollBody()"
+          class="extra-container"
+          @click="showWindow = false">
 
-        <div class="info-window">          
-          <img :src="clickedMoreInfo.clickImg" alt="">
-          <ul>
-            <li class="overview">{{clickedMoreInfo.clickTitle}}</li>
-            <li class="overview">{{clickedMoreInfo.clickOrigTitle}}</li>
-            <li class="overview">Overview: {{clickedMoreInfo.clickOverview}}</li>
-          </ul>
-                                  
+        <div class="info-window">
+          <img :src="clickedMoreInfo.clickImg">
+
+          <div class="all-info">
+            <ul>
+              <li class="title-window">{{clickedMoreInfo.clickTitle}}</li>
+              <li class="title-window" v-if="clickedMoreInfo.clickOrigTitle != clickedMoreInfo.clickTitle ">{{clickedMoreInfo.clickOrigTitle}}</li>
+              <li class="overview"> {{clickedMoreInfo.clickOverview}}</li>
+              <span>Cast:</span>
+              <li class="cast-window" v-for="actor in clickedMoreInfo.clickCast">{{actor}}</li>          
+            </ul>   
+
+            <div class="info-icons play-window">
+              <div class="circle">
+                <i class="fas fa-play"></i>
+              </div>              
+            </div>
+
+          </div>
+                                         
         </div>
 
       </div>

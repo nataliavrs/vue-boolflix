@@ -2,21 +2,17 @@ var app = new Vue({
   el: '#app',
   data: {
 
-    // click more info window movie/tv
+    // info window movie/tv
     clickedMoreInfo: {
-      clickImg: "done",
-      clickTitle: "done",
-      clickOrigTitle: "done",
-      clickLanguage: "",
-      clickStars: "",
-      clickGenres: "",
-      clickCast: "",
-      clickOverview: "done",
+      clickImg: "",
+      clickTitle: "",
+      clickOrigTitle: "",
+      clickCast: [],
+      clickOverview: "",
     },
 
     showWindow: false,
-    // 
-
+    
     indexMovie: "",
 
     // movies genres
@@ -31,42 +27,8 @@ var app = new Vue({
     flagsExist: 'afarbgcncsdadeenesetfrgahihuitjakonlnoplptroruskslsvtrvi'
   },  
   mounted: function () {
-
-    // // API CALLS TO SHOW DEFAULT RESULTS
-
-    // // FETCH MOVIES FROM API
-    // const movieInfo =
-    // "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-    //  + "britney" + "&page=1&include_adult=false"
-
-    // axios.get(movieInfo)
-    // .then(movie => {
-
-    //   for (var i = 0; i < movie.data.results.length; i++) {
-
-    //     this.moviesResults.push(movie.data.results[i]);
-
-    //   }
-
-    // });
-
-    // // FETCH TV SHOWS FROM API
-    // const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
-    //  + "black" + "&page=1&include_adult=false"
-
-    // axios.get(tvInfo)
-    // .then(shows => {
-
-    //   for (var i = 0; i < shows.data.results.length; i++) {
-
-    //     this.showsResults.push(shows.data.results[i]);
-
-    //   }
-
-    // });
-
+    
     this.fetchGenres();
-    // console.log("mounted log", this.fetchGenres());
 
   },
   methods: {
@@ -88,16 +50,12 @@ var app = new Vue({
         for (var i = 0; i < movie.data.results.length; i++) {
 
           this.moviesResults.push(movie.data.results[i]);
-          this.moviesResults[i].show = false;
-          // console.log(this.moviesResults[i]);
-
+          this.moviesResults[i].show = false;            
           this.fetchCast();          
               
         }
          
       });
-
-      // this.fetchGenres();
             
       // FETCH TV SHOWS FROM API
       
@@ -136,7 +94,7 @@ var app = new Vue({
             element.cast.push(cast.data.cast[i].name);                                    
 
           }
-                                                                                     
+                                                                                                
       });
 
       });
@@ -160,24 +118,8 @@ var app = new Vue({
       } else {
         return "img/no-cover.png"
       }
-
-      // if (match.first_air_date && match.poster_path != null) {
-      //   return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
-      // } else if (match.original_title && match.poster_path != null) {
-      //   return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
-      // } else {
-      //   return "img/no-cover.png"
-      // }
-
-    },
-    // OVERVIEW TOGGLE
-    showInfo: function (index) {
-                
-      this.indexMovie = index;
-
-      this.showInfo();
       
-    },
+    },    
     // FETCH GENRES LIST
     fetchGenres: function () {
 
@@ -211,39 +153,26 @@ var app = new Vue({
     // NEW WINDOW CLICKED MOVIE/TV SHOW
     showInfoWindow: function (match, index) {
 
+      // OPEN MOVIE/TV-SHOW INFO ON CLICK
       this.showWindow = true;
 
-      // WINDOW INFO
+      // MOVIE/TV-SHOW INFO
+      // img
       this.clickedMoreInfo.clickImg = "https://image.tmdb.org/t/p/" + "w342" + match.poster_path;
-
+      // title
       this.clickedMoreInfo.clickTitle = match.title;
-
+      // original title
       this.clickedMoreInfo.clickOrigTitle = match.original_title;
-            
-      this.clickedMoreInfo.clickOverview = this.moviesResults[index].overview;
+      // overview
+      this.clickedMoreInfo.clickOverview = match.overview;
+      // cast
+      this.clickedMoreInfo.clickCast = match.cast;
 
-      // clickedMoreInfo: {
-      //   clickImg: "done",
-      //   clickTitle: "",
-      //   clickOrigTitle: "",
-      //   clickLanguage: "",
-      //   clickStars: "",
-      //   clickGenres: "",
-      //   clickCast: "",
-      //   clickOverview: "done",
-      // },
-           
+      console.log(match);
+                
     },
     showImgWindow: function () {
-
-      // if (this.showsResults[index].first_air_date && this.showsResults[index].poster_path != null) {
-      //   return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
-      // } else if (this.moviesResults[index].original_title && this.moviesResults[index].poster_path != null) {
-      //   return "https://image.tmdb.org/t/p/" + "w342" + this.moviesResults[index].poster_path
-      // } else {
-      //   return "img/no-cover.png"
-      // }
-
+    
       if (match.first_air_date && match.poster_path != null) {
         return "https://image.tmdb.org/t/p/" + "w342" + this.showsResults[index].poster_path
       } else if (match.original_title && match.poster_path != null) {
@@ -253,12 +182,12 @@ var app = new Vue({
       }
 
     }
-    //// END METHODS ////
   },
   
 });
 
-// FUNCTION TO ENABLE AND DISABLE SCROLL OF BODY WHEN MOVIE/TV WINDOW IS OPENED 
+// FUNCTION TO ENABLE AND DISABLE SCROLL OF BODY WHEN MOVIE/TV WINDOW IS OPENED
+
 var body = document.getElementById("body");
 
 function disableScrollBody () {  
