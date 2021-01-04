@@ -62,10 +62,11 @@
 
       <!-- MAIN -->
       <main>
+
+        <h3 :class="userQuery != '' ? 'show' : '' " class="showing-results">Showing results for: {{userQuery}}</h3>
         
         <!-- MOVIES SECTION -->
-        <h1 class="section-title">Movies <i class="fas fa-chevron-right"></i></h1>
-        
+        <h1 class="section-title">Movies <i class="fas fa-chevron-right"></i></h1>        
         <section class="all-movies-container">
       
           <div
@@ -95,7 +96,6 @@
                   </i>
                 </li>
 
-
                 <!-- icons (div inside list might be bad idea) -->
                 <div class="info-icons">
                   <div class="circle">
@@ -104,7 +104,6 @@
                   <div class="circle" 
                         @click="showInfoWindow(match, index)"
                         onclick="disableScrollBody()">
-                        <!-- @click="showInfo(index)" -->
                     <i class="fas fa-info-circle"></i>
                   </div>
                 </div>
@@ -125,37 +124,64 @@
         </section>
 
         <!-- TV SHOWS SECTION -->
-        <!-- <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1> -->
-        <!-- <section class="all-shows-container">
+        <h1 class="section-title">TV Shows <i class="fas fa-chevron-right"></i></h1>
+        <section class="all-shows-container">
 
           <div
             class="show-container"
             v-for="(match, index) in showsResults"
             >
-
+                     
+            <!-- poster image -->
             <img class="poster-img" :src="findPoster(match, index)">
-            <p class="no-poster" v-if="match.poster_path === null"> {{match.original_name}} </p>
+            <p
+              class="no-poster"
+              v-if="match.poster_path === null"
+              > {{match.original_title}}
+            </p>
 
-            
+            <!-- TV SHOW INFO ON HOVER -->
             <div class="shows-info">
-
+            
+              <!-- all info list -->
               <ul>
+                <!-- titles -->
                 <li class="title">{{match.name}}</li>
                 <li v-if="match.name != match.original_name">Original Title: {{match.original_name}}</li>
-                <li class="overview-container">Overview: {{match.overview}}</li>
-                <li>{{match.first_air_date}}</li>
-                <li>Language:<img :src="findFlag(match, index)" class="lang-flag"></li>
+                <!-- vote stars -->
                 <li>
                   <i v-for="stars in 5" :class="Math.ceil(match.vote_average / 2) >= stars ? 'fas fa-star' : 'far fa-star' ">
                   </i>
                 </li>
-              </ul>
 
+                <!-- icons (div inside list might be bad idea) -->
+                <div class="info-icons">
+                  <div class="circle">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="circle" 
+                        @click="showInfoWindow(match, index)"
+                        onclick="disableScrollBody()">
+                    <i class="fas fa-info-circle"></i>
+                  </div>
+                </div>
+
+                <!-- genres -->       
+                         <!-- MIGHT NEED TO DEBUG -->
+                <li class="genres" v-for="genre in match.genre_ids">{{getGenreNameTV(genre)}}
+                </li>
+                <!-- getGenreNameTV(genre) -->
+                
+                <!-- language flag -->
+                <li class="lang-flag"> Language: 
+                  <img :src="findFlag(match, index)" class="flag">
+                </li>             
+           
             </div>
-
+           
           </div>
-
-        </section> -->
+    
+        </section>
 
       </main>
 
@@ -174,7 +200,7 @@
       </footer>
 
       <!-- MOVIE/TVSHOW WINDOW WHEN INFO ICON IS CLICKED -->
-      <div v-if="showWindow"
+      <div v-if="showWindow" 
           onclick="enableScrollBody()"
           class="extra-container"
           @click="showWindow = false">

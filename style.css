@@ -12,10 +12,6 @@
   font-family: 'Lato', sans-serif;
 }
 
-body {
-  background-color: black;
-}
-
 .noScroll {
   overflow: hidden;
 }
@@ -36,6 +32,7 @@ header {
   padding: 5px 30px;
   align-items: center;
   max-height: 10vh;
+  width: 100vw;
 }
 
 header .nav-left, .nav-right {
@@ -145,11 +142,22 @@ main {
   margin-top: 50px;
 }
 
+.showing-results {
+  color: white;
+  padding: 10px 30px;
+  font-size: 1.2em; 
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
 .section-title {
   font-size: 1.5em;
   color: white;
   margin-left: 30px;
-  margin-top: 70px;
+  margin-top: 10px;
 }
 
 .all-movies-container, .all-shows-container {
@@ -168,6 +176,10 @@ main {
   position: relative;
   flex-shrink: 0;
   padding: 5px 1px;
+}
+
+.all-shows-container::-webkit-scrollbar, .all-movies-container::-webkit-scrollbar  {
+  display: none;
 }
 
 /* 
@@ -232,7 +244,6 @@ main {
   color: white;
   font-size: 1.5em;
   font-weight: bold;
-  /* margin: 1px 0 10px 0; */
   min-height: 80%;
 }
 
@@ -298,26 +309,6 @@ main {
 }
 
 /*
-  ###### 
-      MAIN: MOVIES SECTION
-  ######
-*/
-
-.all-movies-container::-webkit-scrollbar {
-  display: none;
-}
-
-/*
-  ###### 
-      MAIN: TV SHOWS SECTION
-  ######
-*/
-
-.all-shows-container::-webkit-scrollbar {
-  display: none;
-}
-
-/*
   ################
                 FOOTER
   ################
@@ -349,37 +340,41 @@ footer h4 {
   ################
 */
 
+/* NEEDS TO BE FIXED -> WINDOW IS NOT PROPERLY CENTERED */
+
+body {
+  background-color: black;
+}
+
+#app {
+  position: relative;  
+}
+
 .extra-container {
   color: lightgrey;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
   z-index: 999;
-  transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.534);
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.extra-container .info-window {
-  background-color: rgba(0, 0, 0, 0.716);
-  height: 75%;
+.info-window {
+  background-color: rgba(0, 0, 0, 0.8);
+  max-height: 60%;
+  min-height: 30%;
   width: 75%;
   border-radius: 5px;
   display: flex;
-  overflow: hidden;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 100;
-  transform: translate(-50%, -50%);
-  align-content: center;
   align-items: center;
-  
 }
 
 .info-window img {
-  width: 400px;
+  width: 300px;
 }
 
 .extra-container .all-info .overview  {

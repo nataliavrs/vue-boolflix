@@ -1,24 +1,22 @@
 var app = new Vue({
   el: '#app',
   data: {
-
-    // info window movie/tv
+    // NEW WINDOW 
+    showWindow: false,  
+    indexMovie: "",
+    // WINDOW ITEM INFO
     clickedMoreInfo: {
       clickImg: "",
       clickTitle: "",
       clickOrigTitle: "",
       clickCast: [],
       clickOverview: "",
-    },
-
-    showWindow: false,
-    
-    indexMovie: "",
-
-    // movies genres
+    },    
+    // MOVIES GENRES
     moviesGenres: [],
-
-    // SEARCH INPUT
+    // TV SHOWS GENRES
+    tvGenres: [],
+    // SEARCH USER INPUT
     userQuery: "",
     // search results
     moviesResults: [],
@@ -29,6 +27,42 @@ var app = new Vue({
   mounted: function () {
     
     this.fetchGenres();
+
+    // FETCH MOVIES FROM API
+    const movieInfo =
+    "https://api.themoviedb.org/3/search/movie?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+     + "a" + "&page=1&include_adult=false"
+
+    axios.get(movieInfo)
+    .then(movie => {
+
+      for (var i = 0; i < movie.data.results.length; i++) {
+
+        this.moviesResults.push(movie.data.results[i]);
+        this.moviesResults[i].show = false;            
+        this.fetchCast();          
+            
+      }
+       
+    });
+          
+    // FETCH TV SHOWS FROM API
+    
+    const tvInfo = "https://api.themoviedb.org/3/search/tv?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US&query="
+     + "a" + "&page=1&include_adult=false"
+
+    axios.get(tvInfo)
+    .then(shows => {
+
+      for (var i = 0; i < shows.data.results.length; i++) {
+
+        this.showsResults.push(shows.data.results[i]);
+        this.showsResults[i].show = false;   
+        this.fetchCast();  
+
+      }
+
+    });
 
   },
   methods: {
@@ -68,11 +102,12 @@ var app = new Vue({
         for (var i = 0; i < shows.data.results.length; i++) {
 
           this.showsResults.push(shows.data.results[i]);
+          this.showsResults[i].show = false;   
+          this.fetchCast();  
 
         }
 
       });
-
 
     },
     // FETCH ACTORS NAMES
@@ -85,15 +120,64 @@ var app = new Vue({
 
         axios.get(creditsList)
         .then(cast => {
+          
+          if (cast.data.cast.length > 5) {
 
-          element.cast = [];
-          var numberActors = 5;
-        
-          for (let i = 0; i < numberActors; i++) {
+            element.cast = [];
             
-            element.cast.push(cast.data.cast[i].name);                                    
+            var numberActors = 5;
 
+            for (let i = 0; i < numberActors; i++) {
+            
+              element.cast.push(cast.data.cast[i].name);                                    
+  
+            }
+          } else {
+
+            element.cast = [];
+            
+            for (let i = 0; i < cast.data.cast.length; i++) {
+            
+              element.cast.push(cast.data.cast[i].name);                                    
+  
+            }
           }
+                                                                                                
+      });
+
+      });
+
+      this.showsResults.forEach(element => {
+        
+        const creditsList = 
+        "https://api.themoviedb.org/3/tv/" + element.id + "/credits?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US";
+        
+        axios.get(creditsList)
+        .then(cast => {
+                    
+          if (cast.data.cast.length > 5) {
+
+            element.cast = [];
+
+            var numberActors = 5;
+
+            for (let i = 0; i < numberActors; i++) {
+            
+              element.cast.push(cast.data.cast[i].name);                                    
+  
+            }
+          } else {
+
+            element.cast = [];
+            
+            for (let i = 0; i < cast.data.cast.length; i++) {
+            
+              element.cast.push(cast.data.cast[i].name);                                    
+  
+            }
+          }
+        
+          
                                                                                                 
       });
 
@@ -123,32 +207,60 @@ var app = new Vue({
     // FETCH GENRES LIST
     fetchGenres: function () {
 
+      // MOVIES GENRES LIST
       const genresList = "https://api.themoviedb.org/3/genre/movie/list?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US"
 
       axios.get(genresList)
       .then(genres => {
        
         this.moviesGenres = genres.data;
+               
+      });
+      
+      // TV SHOWS GENRES LIST        
+      const genresListTv = "https://api.themoviedb.org/3/genre/tv/list?api_key=149b8df650057fdf2402c5c032bf9560&language=en-US"
+
+      axios.get(genresListTv)
+      .then(genres => {
        
+        this.tvGenres = genres.data;
+               
       });
                                                                                         
     },
-    // REPLACE GENRE ID WITH GENRE NAME
+    // GET GENRE NAMES MOVIES
     getGenreName: function (genreId) {
-            
+      
       let genereTitle = "";
       
       this.moviesGenres.genres.forEach(element => {
         
         if (element.id == genreId) {
-          // return element.name;
+
           genereTitle = element.name;
-          // return 
+
         }            
       });
 
       return genereTitle
 
+    },
+    // GET GENRE NAMES TV SHOWS
+    getGenreNameTV: function (genreId) {
+                      
+      let genereTitleTv = "";
+      
+      this.tvGenres.genres.forEach(element => {
+        
+        if (element.id == genreId) {
+
+          genereTitleTv = element.name;
+
+        }            
+      });
+
+      return genereTitleTv
+    
     },
     // NEW WINDOW CLICKED MOVIE/TV SHOW
     showInfoWindow: function (match, index) {
@@ -159,18 +271,21 @@ var app = new Vue({
       // MOVIE/TV-SHOW INFO
       // img
       this.clickedMoreInfo.clickImg = "https://image.tmdb.org/t/p/" + "w342" + match.poster_path;
-      // title
-      this.clickedMoreInfo.clickTitle = match.title;
-      // original title
-      this.clickedMoreInfo.clickOrigTitle = match.original_title;
+      // titles
+      if (!match.title) {
+        this.clickedMoreInfo.clickTitle = match.name;
+        this.clickedMoreInfo.clickOrigTitle = match.original_name;
+      } else {
+        this.clickedMoreInfo.clickOrigTitle = match.original_title;
+        this.clickedMoreInfo.clickTitle = match.title;
+      }
       // overview
       this.clickedMoreInfo.clickOverview = match.overview;
       // cast
       this.clickedMoreInfo.clickCast = match.cast;
-
-      console.log(match);
                 
     },
+    // FETCH IMAGE WHEN ITEM OPENED
     showImgWindow: function () {
     
       if (match.first_air_date && match.poster_path != null) {
