@@ -346,13 +346,10 @@ body {
   background-color: black;
 }
 
-/* #app {
-  position: relative;  
-} */
 
 .extra-container {
   color: lightgrey;
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.534);
@@ -365,8 +362,8 @@ body {
 
 .info-window {
   background-color: rgba(0, 0, 0, 0.8);
-  max-height: 60%;
-  min-height: 30%;
+  max-height: 65%;
+  min-height: 65%;
   width: 75%;
   border-radius: 5px;
   display: flex;
@@ -374,7 +371,7 @@ body {
 }
 
 .info-window img {
-  width: 300px;
+  max-width: 300px;
 }
 
 .extra-container .all-info .overview  {
